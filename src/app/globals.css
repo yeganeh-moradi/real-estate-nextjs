@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+:root {
+
+}
+
+/* 🌐 تعریف فونت فارسی IranSans با وزن‌های مختلف */
+@font-face {
+  font-family: "IranSans";
+  src: url("/fonts/IRANSans-UltraLight-web.ttf");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IranSans";
+  src: url("/fonts/IRANSans-Light-web.ttf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IranSans";
+  src: url("/fonts/IRANSans-web.ttf");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IranSans";
+  src: url("/fonts/IRANSans-Medium-web.ttf");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IranSans";
+  src: url("/fonts/IRANSans-Bold-web.ttf");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+html {
+  direction: rtl;
+  text-align: right;
+  font-family: "IranSans", sans-serif;
+}
+
+body {
+  direction: rtl;
+  text-align: right;
+  font-family: inherit;
+}
+
+.embla {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+}
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}

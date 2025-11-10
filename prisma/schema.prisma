@@ -1,0 +1,116 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  name          String?
+  email         String?   @unique
+  password      String?
+  phone         String?   @unique
+  image         String?
+  bio           String?
+  emailVerified DateTime?
+  isVerified    Boolean   @default(false)
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  properties Property[]
+  posts      Post[]     @relation("UserPosts")
+  accounts   Account[]
+  sessions   Session[]
+}
+
+model Account {
+  id                Int     @id @default(autoincrement())
+  userId            Int
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           Int      @id @default(autoincrement())
+  sessionToken String   @unique
+  userId       Int
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  id         Int      @id @default(autoincrement())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Property {
+  id            Int      @id @default(autoincrement())
+  title         String
+  description   String
+  propertyType  String
+  dealType      String
+  price         Float?
+  rentPrice     Float?
+  depositPrice  Float?
+  area          Float
+  roomCount     Int?
+  bathroomCount Int?
+  floor         Int?
+  totalFloors   Int?
+  yearBuilt     Int?
+  parking       Boolean  @default(false)
+  elevator      Boolean  @default(false)
+  storage       Boolean  @default(false)
+  furnished     Boolean  @default(false)
+  status        String
+  location      String
+  images        String[]
+  ownerId       Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?
+  imageUrl  String?
+  videoUrl  String? // لینک ساده ویدیو (اختیاری)
+  embedCode String?  @db.Text // 👈 برای iframe یا کد امبد آپارات
+  category  String?
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  authorId  Int?
+  author    User?    @relation("UserPosts", fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  USER
+  AGENT
+  ADMIN
+}
