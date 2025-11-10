@@ -7,7 +7,7 @@
   "disks": [
     {
       "name": "khan-disk",
-      "mountTo": "path/to/folder"
+      "mountTo": "storage/images"
     }
   ]
 }

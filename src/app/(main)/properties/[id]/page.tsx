@@ -96,7 +96,7 @@ export default async function ListingPage({
               <Image
                 src={
                   getImagePath(listing.images[0]) ||
-                  "/images/placeholder-avatar.jpg"
+                  "/profile/placeholder-avatar.jpg"
                 }
                 alt={listing.title || "ملک"}
                 fill
