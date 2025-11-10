@@ -1,8 +1,13 @@
 {
-  "app": "gracious-curran-qcazuie4u",
+  "app": "khan",
   "port": 3000,
   "build": {
     "location": "iran"
   },
-  "disks": []
+  "disks": [
+    {
+      "name": "khan-disk",
+      "mountTo": "path/to/folder"
+    }
+  ]
 }
